@@ -12,7 +12,10 @@
   <meta property="og:url" content="https://kalyanraj08.github.io/projects.html" />
   <meta property="og:image" content="https://kalyanraj08.github.io/assets/kalyan.jpg" />
   <meta name="twitter:card" content="summary" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b2fd4'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' text-anchor='middle' fill='white'%3E~/%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -24,7 +27,14 @@
     <!-- Left sidebar: wide screens -->
     <aside class="side" aria-label="Site menu">
       <div class="side-in">
-        <a class="logo" href="index.html"><b>~/</b> kalyan<span class="cur"></span></a>
+        <a class="profile" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="48" height="48" />
+          <span class="profile-text">
+            <strong>Kalyan Rajkumar</strong>
+            <span class="mono">@KalyanRaj08</span>
+          </span>
+        </a>
+        <p class="profile-bio">Backend engineer at Zoho · Chennai</p>
         <div>
           <div class="side-label">menu</div>
           <nav class="side-nav">
@@ -43,7 +53,10 @@
     <div class="content">
       <!-- Top bar: narrow screens -->
       <nav class="site-nav" aria-label="Site menu">
-        <a class="logo" href="index.html"><b>~/</b> kalyan<span class="cur"></span></a>
+        <a class="profile small" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="32" height="32" />
+          <span class="profile-text"><strong>Kalyan Rajkumar</strong></span>
+        </a>
         <div class="site-links">
           <a href="index.html">home</a><a href="projects.html" aria-current="page">projects</a><a href="about.html">about</a>
           <a href="about.html#contact">contact</a>
