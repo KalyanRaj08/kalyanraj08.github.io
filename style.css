@@ -415,7 +415,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .fold-btn:hover .chev { transform: translateY(-2px) scale(1.08); background: rgba(139,92,246,.3); border-color: var(--purple-light); }
 .fold-body { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .3s ease; }
 .fold-body > div { overflow: hidden; min-height: 0; }
-.fold.closed > .fold-body { grid-template-rows: 0fr; }
+.fold.closed > .fold-body { grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows .3s ease, visibility 0s .3s; }
 .fold-inner { padding-top: 16px; }
 .fold.sub { margin-top: 22px; }
 .fold.sub .slash { font-size: 20px; }
