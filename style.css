@@ -281,9 +281,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .skill:last-child { border-bottom: 0; }
 .skill .mono { font-size: 10.5px; color: var(--cyan); text-transform: uppercase; letter-spacing: .08em; }
 
+.sub-label { font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--purple-light); margin: 22px 0 12px; }
+.sub-label::before { content: '// '; color: var(--text-muted); }
 .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.cert { font-size: 12px; color: var(--text-sec); padding: 8px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--glass); font-family: var(--mono); }
+.cert { display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; color: var(--text); padding: 10px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--glass); font-family: var(--mono); }
 
+.cert em { font-style: normal; font-size: 10.5px; color: var(--text-muted); }
 .contact-card { background: var(--glass); border: 1px solid var(--line-hi); border-radius: 16px; padding: 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; scroll-margin-top: 80px; }
 .contact-card > * { min-width: 0; max-width: 100%; }
 .contact-card h2 { font-size: 20px; letter-spacing: -.5px; }
@@ -323,6 +326,42 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .side-resume .txt { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
 .side-resume strong { font-size: 14px; font-weight: 700; }
 .side-resume .mono { font-size: 10.5px; font-weight: 500; opacity: .75; }
+
+/* ── SKILLS WALL (About page) ── */
+.sk-tag {
+  --c: var(--purple-light);
+  position: relative; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  font-family: var(--mono); font-weight: 500; color: var(--text);
+  background: rgba(139,92,246,.10); border: 1px solid rgba(139,92,246,.28); border-radius: 999px;
+  transition: transform .15s, background .15s, border-color .15s;
+}
+.sk-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--c); box-shadow: 0 0 6px var(--c); flex-shrink: 0; }
+.sk-tag.t1 { font-size: 10.5px; padding: 3px 9px; gap: 6px; color: var(--text-sec); }
+.sk-tag.t2 { font-size: 11.5px; padding: 4px 10px; gap: 6px; }
+.sk-tag.t3 { font-size: 12.5px; padding: 5px 12px; gap: 6px; font-weight: 600; background: rgba(139,92,246,.2); border-color: var(--line-hi); box-shadow: 0 0 12px rgba(124,58,237,.25); }
+.sk-tag:hover { transform: translateY(-3px) scale(1.05); background: rgba(139,92,246,.32); border-color: var(--purple-light); z-index: 2; }
+
+.sk-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 10px; }
+.sk-wide { margin-top: 10px; }
+@media (max-width: 1099px) { .sk-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 589px) { .sk-panels { grid-template-columns: minmax(0, 1fr); } }
+.sk-panel {
+  position: relative; overflow: hidden; display: flex; flex-direction: column;
+  padding: 14px 14px 14px; border-radius: 14px; min-width: 0; gap: 10px;
+  background: var(--glass); border: 1px solid var(--line);
+  transition: border-color .2s, background .2s;
+}
+.sk-panel:hover { border-color: var(--line-hi); background: var(--glass-hi); }
+.sk-panel h3 { font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--purple-pale); }
+.sk-panel h3::before { content: '// '; color: var(--text-muted); }
+.sk-panel .note { font-size: 11px; color: var(--text-muted); margin: 2px 0 10px; line-height: 1.4; }
+.sk-cloud { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; flex: 1; }
+
+.sk-speak { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.sk-speak div { display: flex; justify-content: space-between; align-items: baseline; font-size: 18px; font-weight: 700; letter-spacing: -.6px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.sk-speak div:last-child { border-bottom: 0; padding-bottom: 0; }
+.sk-speak small { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0; color: var(--text-muted); }
+
 
 /* ── NARROW SCREENS: sidebar becomes the top bar ── */
 @media (max-width: 760px) {
