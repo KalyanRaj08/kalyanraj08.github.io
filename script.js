@@ -9,6 +9,18 @@ document.querySelectorAll('.chip[data-filter]').forEach((chip) => {
   });
 });
 
+// About page: collapsible sections
+document.querySelectorAll('.fold-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const fold = btn.closest('.fold');
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    fold.classList.toggle('closed', open);
+    const hint = btn.querySelector('.fold-hint');
+    if (hint) hint.textContent = open ? 'click to open' : 'click to close';
+  });
+});
+
 // About page: highlight "contact" in the menu while the contact card is on screen
 const contactCard = document.getElementById('contact');
 if (contactCard && 'IntersectionObserver' in window) {

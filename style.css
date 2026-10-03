@@ -288,10 +288,19 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .badge.college { color: var(--purple-pale); border-color: rgba(196,181,253,.35); background: rgba(139,92,246,.1); }
 
 /* ── ABOUT ── */
-.about-top { display: grid; grid-template-columns: 200px 1fr; gap: 28px; padding: 40px 0 36px; align-items: start; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
-.portrait { aspect-ratio: 4/5; border-radius: 14px; border: 1px solid var(--line-hi); overflow: hidden; background: var(--bg2); }
-.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.about-top h1 { font-size: 32px; letter-spacing: -1.2px; line-height: 1.1; margin: 12px 0 10px; text-wrap: balance; }
+.about-top { display: grid; grid-template-columns: 260px 1fr; gap: 32px; padding: 40px 0 36px; align-items: stretch; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
+.portrait { position: relative; min-height: 300px; border-radius: 14px; border: 1px solid var(--line-hi); overflow: hidden; background: var(--bg2); }
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+.about-top .sec-label { display: block; line-height: 1; }
+.info { display: flex; flex-direction: column; margin-top: 4px; }
+.info div { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+.info div:last-child { border-bottom: 0; }
+.info dt { font-family: var(--mono); font-size: 11.5px; color: var(--purple-light); padding-top: 2px; }
+.info dd { color: var(--text); }
+.story { display: flex; flex-direction: column; gap: 16px; }
+.story p { color: var(--text-sec); font-size: 14.5px; line-height: 1.85; text-align: justify; hyphens: auto; }
+.story .pull { margin: 8px 0; padding: 18px 0; border-top: 1px solid var(--line-hi); border-bottom: 1px solid var(--line-hi); font-size: 20px; font-weight: 600; line-height: 1.4; letter-spacing: -.4px; color: var(--purple-pale); text-wrap: balance; }
+.about-top h1 { font-size: 32px; letter-spacing: -1.2px; line-height: 1.1; margin: 14px 0 6px; text-wrap: balance; }
 .about-top p { color: var(--text-sec); max-width: 58ch; margin-bottom: 10px; font-size: 14px; }
 
 .tl-item { display: grid; grid-template-columns: 120px 1fr; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line); }
@@ -388,6 +397,32 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sk-speak small { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0; color: var(--text-muted); }
 
 
+/* ── COLLAPSIBLE SECTIONS ── */
+.fold-btn { width: 100%; text-align: left; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; display: flex; align-items: center; gap: 14px; padding-bottom: 12px; position: relative; }
+.fold-btn::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, var(--purple-sat), var(--line) 40%, transparent); }
+.fold-title { display: flex; align-items: baseline; gap: 12px; min-width: 0; flex: 1; }
+.fold .slash { font-family: var(--mono); font-weight: 700; font-size: 30px; line-height: 1.1; color: var(--purple-sat); letter-spacing: -.06em; flex-shrink: 0; }
+.fold-name { font-family: var(--mono); font-weight: 700; font-size: 28px; line-height: 1.1; color: var(--text); letter-spacing: -.01em; min-width: 0; overflow-wrap: anywhere; }
+.fold-btn:hover .fold-name { color: var(--purple-pale); }
+.fold-hint { font-family: var(--mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.chev {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+  background: var(--glass); border: 1px solid var(--line); color: var(--purple-light);
+  transition: transform .15s, background .15s, border-color .15s;
+}
+.chev svg { width: 14px; height: 14px; transition: transform .25s ease; }
+.fold-btn[aria-expanded="false"] .chev svg { transform: rotate(-90deg); }
+.fold-btn:hover .chev { transform: translateY(-2px) scale(1.08); background: rgba(139,92,246,.3); border-color: var(--purple-light); }
+.fold-body { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .3s ease; }
+.fold-body > div { overflow: hidden; min-height: 0; }
+.fold.closed > .fold-body { grid-template-rows: 0fr; }
+.fold-inner { padding-top: 16px; }
+.fold.sub { margin-top: 22px; }
+.fold.sub .slash { font-size: 20px; }
+.fold.sub .fold-name { font-size: 18px; font-weight: 600; }
+.fold.sub .fold-btn::after { background: var(--line); }
+.fold.sub .chev { width: 28px; height: 28px; }
+
 /* ── NARROW SCREENS: sidebar becomes the top bar ── */
 @media (max-width: 760px) {
   .shell { grid-template-columns: 1fr; }
@@ -401,11 +436,17 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .strip { grid-template-columns: 1fr; }
   .snap-row { grid-template-columns: 1fr; gap: 2px; }
   .about-top { grid-template-columns: 1fr; gap: 18px; }
-  .portrait { max-width: 150px; }
+  .info div { grid-template-columns: 1fr; gap: 2px; }
+  .portrait { max-width: 150px; min-height: 0; aspect-ratio: 4/5; }
   .tl-item { grid-template-columns: 1fr; gap: 4px; }
   .two-col, .certs { grid-template-columns: 1fr; }
   .proj-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 420px; }
   .page-title h1 { font-size: 28px; }
+  .fold .slash { font-size: 24px; }
+  .fold-name { font-size: 22px; }
+  .fold-hint { display: none; }
+  .fold.sub .slash { font-size: 18px; }
+  .fold.sub .fold-name { font-size: 16px; }
   .contact-card { scroll-margin-top: 120px; }
 }
 
@@ -416,6 +457,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .fold-body, .chev, .chev svg { transition: none; }
   .stat, .stat:hover { transition: none; transform: none; }
   .logo .cur, .name-link, .name-link::after, .btn-resume, .side-resume, .btn-resume::after, .side-resume::after, .btn-resume .ico, .side-resume .ico { animation: none; }
 }
