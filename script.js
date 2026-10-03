@@ -9,6 +9,19 @@ document.querySelectorAll('.chip[data-filter]').forEach((chip) => {
   });
 });
 
+// About page: highlight "contact" in the menu while the contact card is on screen
+const contactCard = document.getElementById('contact');
+if (contactCard && 'IntersectionObserver' in window) {
+  const aboutLinks = document.querySelectorAll('a[href="about.html"]');
+  const contactLinks = document.querySelectorAll('a[data-contact]');
+  const setCurrent = (links, on) => links.forEach((a) => (on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
+  new IntersectionObserver((entries) => {
+    const onScreen = entries[entries.length - 1].isIntersecting;
+    setCurrent(contactLinks, onScreen);
+    setCurrent(aboutLinks, !onScreen);
+  }, { threshold: 0.15 }).observe(contactCard);
+}
+
 // About page: copy email
 const copyBtn = document.getElementById('copy-email');
 if (copyBtn) {
