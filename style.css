@@ -461,3 +461,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .stat, .stat:hover { transition: none; transform: none; }
   .logo .cur, .name-link, .name-link::after, .btn-resume, .side-resume, .btn-resume::after, .side-resume::after, .btn-resume .ico, .side-resume .ico { animation: none; }
 }
+
+/* ── SLOT-MACHINE STAT NUMBERS ── */
+.reel { display: inline-block; height: 1.1em; overflow: hidden; vertical-align: top; }
+.reel-strip { display: flex; flex-direction: column; transition: transform 1.8s cubic-bezier(.12, .7, .15, 1); }
+.reel-strip span { display: block; height: 1.1em; line-height: 1.1; }
+.stat b { height: 1.1em; line-height: 1.1; }
+.stat b span { font-size: inherit; color: inherit; }

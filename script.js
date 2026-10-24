@@ -49,3 +49,48 @@ if (copyBtn) {
     }
   });
 }
+
+// Home page: slot-machine roll for the stat numbers
+document.querySelectorAll('.stat b').forEach((el, n) => {
+  const text = el.textContent;
+  el.setAttribute('aria-label', text);
+  el.textContent = '';
+  const strips = [];
+  let digits = 0;
+  [...text].forEach((ch) => {
+    const out = document.createElement('span');
+    out.setAttribute('aria-hidden', 'true');
+    if (/\d/.test(ch)) {
+      const loops = 2 + digits;
+      out.className = 'reel';
+      const strip = document.createElement('span');
+      strip.className = 'reel-strip';
+      for (let i = 0; i < loops * 10 + 10; i++) {
+        const d = document.createElement('span');
+        d.textContent = i % 10;
+        strip.appendChild(d);
+      }
+      out.appendChild(strip);
+      strips.push([strip, loops * 10 + Number(ch), digits]);
+      digits++;
+    } else {
+      out.textContent = ch;
+    }
+    el.appendChild(out);
+  });
+  const roll = () => {
+    void el.offsetHeight; // commit the start position so the transition runs on reload
+    requestAnimationFrame(() => requestAnimationFrame(() => strips.forEach(([strip, idx, i]) => {
+      strip.style.transitionDelay = `${n * 0.25 + i * 0.12}s`;
+      strip.style.transform = `translateY(${-idx * 1.1}em)`;
+    })));
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { io.disconnect(); roll(); }
+    }, { threshold: 0.4 });
+    io.observe(el);
+  } else {
+    roll();
+  }
+});
