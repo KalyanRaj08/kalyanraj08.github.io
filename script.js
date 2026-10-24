@@ -106,7 +106,14 @@ document.querySelectorAll('.stat b').forEach((el, n) => {
   const prev = document.getElementById('tilePrev');
   const next = document.getElementById('tileNext');
   const GAP = 14;
-  let tiles = false, i = 0, dx = 0, startX = null, moved = false;
+  const SWIPE = 180;
+  let tiles = false, i = 0, dx = 0, dy = 0, startX = null, startY = null, axis = null, moved = false;
+  const msg = document.createElement('div');
+  msg.className = 'go-msg';
+  msg.setAttribute('aria-hidden', 'true');
+  msg.textContent = '↑ Going to details…';
+  document.body.appendChild(msg);
+  const linkOf = (c) => c && c.querySelector('.card-link');
 
   const cards = () => [...grid.querySelectorAll('.card')].filter((c) => !c.hidden);
 
@@ -162,19 +169,54 @@ document.querySelectorAll('.stat b').forEach((el, n) => {
 
   grid.addEventListener('pointerdown', (e) => {
     if (!tiles) return;
-    startX = e.clientX; dx = 0; moved = false;
+    startX = e.clientX; startY = e.clientY; dx = 0; dy = 0; moved = false; axis = null;
   });
   window.addEventListener('pointermove', (e) => {
     if (startX === null) return;
-    dx = e.clientX - startX;
+    const mx = e.clientX - startX, my = e.clientY - startY;
+    if (!axis && Math.hypot(mx, my) > 8) {
+      const cur = cards()[i];
+      const onCur = !!e.target.closest && e.target.closest('.card') === cur;
+      axis = (e.pointerType === 'touch' && my < 0 && Math.abs(my) > Math.abs(mx) && onCur && linkOf(cur)) ? 'v' : 'h';
+    }
+    if (axis === 'v') {
+      moved = true;
+      dy = Math.min(0, my);
+      const p = Math.min(1, -dy / SWIPE);
+      const cur = cards()[i];
+      grid.classList.add('dragging');
+      cur.style.transform = `translateY(${dy}px) scale(${1 - p * 0.05})`;
+      cur.classList.toggle('lifting', p >= 0.5);
+      msg.classList.toggle('show', p >= 0.5);
+      return;
+    }
+    dx = mx;
     if (Math.abs(dx) > 6) moved = true;
     const last = cards().length - 1;
     if ((i === 0 && dx > 0) || (i === last && dx < 0)) dx /= 3;
     grid.classList.add('dragging');
     place(false);
   });
-  const release = () => {
+  const release = (e) => {
     if (startX === null) return;
+    if (axis === 'v') {
+      const cur = cards()[i];
+      const go = e && e.type === 'pointerup' && -dy / SWIPE >= 0.5;
+      startX = null; axis = null;
+      grid.classList.remove('dragging');
+      msg.classList.remove('show');
+      if (go) {
+        cur.style.transition = 'transform .5s cubic-bezier(.6,0,.2,1), opacity .5s';
+        cur.style.transform = 'translateY(-70vh) scale(.88)';
+        cur.style.opacity = '0';
+        goToDetails(cur, 'swipe');
+      } else {
+        cur.classList.remove('lifting');
+        dy = 0;
+        place();
+      }
+      return;
+    }
     const d = dx;
     startX = null;
     grid.classList.remove('dragging');
@@ -198,4 +240,88 @@ document.querySelectorAll('.stat b').forEach((el, n) => {
   let saved = null;
   try { saved = localStorage.getItem('projView'); } catch (e) {}
   setView(saved || (window.matchMedia('(max-width: 760px)').matches ? 'tiles' : 'list'), false);
+
+  // remember where the visitor was, so coming back from a details page lands on the same tile
+  window.projSaveState = (slug) => {
+    const chip = document.querySelector('.chip[data-filter][aria-pressed="true"]');
+    try {
+      sessionStorage.setItem('projState', JSON.stringify({ view: tiles ? 'tiles' : 'list', filter: chip ? chip.dataset.filter : 'all', slug, y: window.scrollY, t: Date.now() }));
+    } catch (e) {}
+  };
+  let st = null;
+  try { st = JSON.parse(sessionStorage.getItem('projState')); sessionStorage.removeItem('projState'); } catch (e) {}
+  if (st && Date.now() - st.t < 30 * 60 * 1000) {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const chip = document.querySelector(`.chip[data-filter="${st.filter}"]`);
+    if (chip && st.filter !== 'all') chip.click();
+    setView(st.view, false);
+    const k = cards().findIndex((c) => { const l = linkOf(c); return l && l.getAttribute('href') === st.slug; });
+    if (k > -1) { i = k; place(false); }
+    requestAnimationFrame(() => window.scrollTo(0, st.y));
+    setTimeout(() => window.scrollTo(0, st.y), 120);
+  }
+  window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) return;
+    try { sessionStorage.removeItem('projState'); } catch (err) {}
+    grid.querySelectorAll('.card').forEach((c) => { c.style.opacity = ''; c.style.transition = ''; c.classList.remove('lifting'); });
+    place(false);
+  });
 })();
+
+// Cards open their details page with a smooth wipe
+function goToDetails(card, how) {
+  const link = card && card.querySelector('.card-link');
+  if (!link || document.body.classList.contains('leaving')) return;
+  document.body.classList.add('leaving');
+  if (window.projSaveState) window.projSaveState(link.getAttribute('href'));
+  const wipe = document.createElement('div');
+  wipe.className = 'nav-wipe';
+  wipe.innerHTML = '<span class="mono">Going to details…</span>';
+  document.body.appendChild(wipe);
+  if (how !== 'swipe') card.classList.add('launching');
+  requestAnimationFrame(() => requestAnimationFrame(() => wipe.classList.add('on')));
+  setTimeout(() => { location.href = link.getAttribute('href'); }, 520);
+}
+document.addEventListener('click', (e) => {
+  if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  const a = e.target.closest('a.card-link');
+  if (!a) return;
+  e.preventDefault();
+  goToDetails(a.closest('.card'), 'click');
+});
+window.addEventListener('pageshow', () => {
+  document.body.classList.remove('leaving');
+  document.querySelectorAll('.nav-wipe').forEach((w) => w.remove());
+  document.querySelectorAll('.card.launching').forEach((c) => c.classList.remove('launching'));
+});
+
+// Project detail page: photo gallery
+(() => {
+  const gal = document.getElementById('gallery');
+  if (!gal) return;
+  const shots = [...gal.querySelectorAll('.shot')];
+  const dots = gal.querySelector('.g-dots');
+  const stage = gal.querySelector('.g-stage');
+  let k = 0, sx = null;
+  dots.innerHTML = shots.map((_, i) => `<button type="button" role="tab" aria-label="Photo ${i + 1}"></button>`).join('');
+  const show = (n) => {
+    k = (n + shots.length) % shots.length;
+    shots.forEach((s, i) => s.classList.toggle('on', i === k));
+    [...dots.children].forEach((d, i) => d.setAttribute('aria-selected', String(i === k)));
+  };
+  gal.querySelector('.prev').addEventListener('click', () => show(k - 1));
+  gal.querySelector('.next').addEventListener('click', () => show(k + 1));
+  dots.addEventListener('click', (e) => { const i = [...dots.children].indexOf(e.target); if (i > -1) show(i); });
+  stage.addEventListener('pointerdown', (e) => { sx = e.clientX; });
+  stage.addEventListener('pointerup', (e) => { if (sx !== null && Math.abs(e.clientX - sx) > 40) show(k + (e.clientX < sx ? 1 : -1)); sx = null; });
+  gal.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(k - 1); if (e.key === 'ArrowRight') show(k + 1); });
+  show(0);
+})();
+
+// Project detail page: clickable system parts
+document.querySelectorAll('.arch').forEach((arch) => {
+  arch.querySelectorAll('.node').forEach((node) => node.addEventListener('click', () => {
+    arch.querySelectorAll('.node').forEach((n) => { n.classList.toggle('on', n === node); n.setAttribute('aria-pressed', String(n === node)); });
+    arch.querySelectorAll('.arch-pane').forEach((p) => { const on = p.dataset.pane === node.dataset.node; p.hidden = !on; p.classList.toggle('on', on); });
+  }));
+});
