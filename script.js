@@ -325,6 +325,14 @@ window.addEventListener('pageshow', () => {
   const dots = gal.querySelector('.g-dots');
   const stage = gal.querySelector('.g-stage');
   let k = 0, sx = null;
+  const STEP = 10;
+  const prevBtn = gal.querySelector('.prev');
+  const nextBtn = gal.querySelector('.next');
+  const skip = document.createElement('div');
+  skip.className = 'g-skip';
+  skip.hidden = true;
+  skip.innerHTML = '<button type="button" class="skip-prev">‹ previous item</button><button type="button" class="skip-next">next item ›</button>';
+  (gal.querySelector('.g-cap') || dots).after(skip);
   dots.innerHTML = shots.map((_, i) => `<button type="button" role="tab" aria-label="Photo ${i + 1}"></button>`).join('');
   const show = (n) => {
     k = (n + shots.length) % shots.length;
@@ -333,13 +341,32 @@ window.addEventListener('pageshow', () => {
     const cap = gal.querySelector('.g-cap');
     if (cap) cap.textContent = (shots[k].dataset.cap || '') + (shots.length > 6 ? `  ·  ${k + 1} / ${shots.length}` : '');
     shots.forEach((s, i) => { const v = s.querySelector('video'); if (v && i !== k) v.pause(); });
+    // on a video slide the arrows rewind and fast-forward it; the skip row moves between items
+    const isVideo = !!shots[k].querySelector('video');
+    stage.classList.toggle('video-mode', isVideo);
+    prevBtn.textContent = isVideo ? '⏪' : '←';
+    nextBtn.textContent = isVideo ? '⏩' : '→';
+    prevBtn.setAttribute('aria-label', isVideo ? 'Rewind 10 seconds' : 'Previous item');
+    nextBtn.setAttribute('aria-label', isVideo ? 'Fast-forward 10 seconds' : 'Next item');
+    skip.hidden = !isVideo;
   };
-  gal.querySelector('.prev').addEventListener('click', () => show(k - 1));
-  gal.querySelector('.next').addEventListener('click', () => show(k + 1));
+  const seek = (d) => {
+    const v = shots[k].querySelector('video');
+    if (!v) return false;
+    v.currentTime = Math.max(0, Math.min(v.duration || 1e9, v.currentTime + d));
+    return true;
+  };
+  prevBtn.addEventListener('click', () => { if (!seek(-STEP)) show(k - 1); });
+  nextBtn.addEventListener('click', () => { if (!seek(STEP)) show(k + 1); });
+  skip.querySelector('.skip-prev').addEventListener('click', () => show(k - 1));
+  skip.querySelector('.skip-next').addEventListener('click', () => show(k + 1));
   dots.addEventListener('click', (e) => { const i = [...dots.children].indexOf(e.target); if (i > -1) show(i); });
   stage.addEventListener('pointerdown', (e) => { sx = e.target.closest('video') ? null : e.clientX; });
   stage.addEventListener('pointerup', (e) => { if (sx !== null && Math.abs(e.clientX - sx) > 40) show(k + (e.clientX < sx ? 1 : -1)); sx = null; });
-  gal.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(k - 1); if (e.key === 'ArrowRight') show(k + 1); });
+  gal.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' && !seek(-STEP)) show(k - 1);
+    if (e.key === 'ArrowRight' && !seek(STEP)) show(k + 1);
+  });
   show(0);
 })();
 
@@ -350,3 +377,60 @@ document.querySelectorAll('.arch').forEach((arch) => {
     arch.querySelectorAll('.arch-pane').forEach((p) => { const on = p.dataset.pane === node.dataset.node; p.hidden = !on; p.classList.toggle('on', on); });
   }));
 });
+
+
+// Project detail pages: previous and next project, in the order chosen on the projects page
+(async () => {
+  const back = document.querySelector('.back-link');
+  if (!back || !document.querySelector('.pd-top')) return;
+  const here = location.pathname.split('/').pop() || 'index.html';
+  let items = [];
+  try {
+    const res = await fetch('projects.html');
+    const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+    items = [...doc.querySelectorAll('.card')].map((c, order) => {
+      const link = c.querySelector('.card-link');
+      return link ? { href: link.getAttribute('href'), title: c.querySelector('h3').textContent, start: Number(c.dataset.start || 0), order } : null;
+    }).filter(Boolean);
+  } catch (e) { return; }
+  let mode = 'default';
+  try { mode = localStorage.getItem('projSort') || 'default'; } catch (e) {}
+  items.sort((a, b) => (mode === 'newest' ? b.start - a.start : mode === 'oldest' ? a.start - b.start : 0) || a.order - b.order);
+  const i = items.findIndex((x) => x.href === here);
+  if (i < 0 || items.length < 2) return;
+  const prev = items[(i - 1 + items.length) % items.length];
+  const next = items[(i + 1) % items.length];
+
+  const bar = document.createElement('div');
+  bar.className = 'pd-bar';
+  back.replaceWith(bar);
+  bar.appendChild(back);
+  const nav = document.createElement('div');
+  nav.className = 'pd-nav';
+  nav.id = 'pdNav';
+  nav.innerHTML = `<a href="${prev.href}" data-title="${prev.title}" aria-label="Previous project: ${prev.title}" title="Previous: ${prev.title}">←</a><span class="mono">${i + 1} / ${items.length}</span><a href="${next.href}" data-title="${next.title}" aria-label="Next project: ${next.title}" title="Next: ${next.title}">→</a>`;
+  bar.appendChild(nav);
+
+  const strip = document.querySelector('.site-main .strip');
+  if (strip) {
+    const pager = document.createElement('nav');
+    pager.className = 'pd-pager';
+    pager.setAttribute('aria-label', 'More projects');
+    pager.innerHTML = `<a class="pd-prev" href="${prev.href}" data-title="${prev.title}"><span class="mono">← previous project</span><b>${prev.title}</b></a><a class="pd-next" href="${next.href}" data-title="${next.title}"><span class="mono">next project →</span><b>${next.title}</b></a>`;
+    strip.before(pager);
+  }
+
+  // same wipe as the project tiles
+  document.querySelectorAll('.pd-nav a, .pd-pager a').forEach((a) => a.addEventListener('click', (e) => {
+    if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || document.body.classList.contains('leaving')) return;
+    e.preventDefault();
+    document.body.classList.add('leaving');
+    const wipe = document.createElement('div');
+    wipe.className = 'nav-wipe';
+    wipe.innerHTML = '<span class="mono"></span>';
+    wipe.firstChild.textContent = a.dataset.title + '…';
+    document.body.appendChild(wipe);
+    requestAnimationFrame(() => requestAnimationFrame(() => wipe.classList.add('on')));
+    setTimeout(() => { location.href = a.getAttribute('href'); }, 480);
+  }));
+})();

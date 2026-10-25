@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaldle.js — Kalyan Rajkumar</title>
+  <meta name="description" content="A Wordle clone Kalyan built in JavaScript with React to learn front-end development." />
+  <meta name="theme-color" content="#080610" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kaldle.js — Kalyan Rajkumar" />
+  <meta property="og:description" content="A Wordle clone Kalyan built in JavaScript with React to learn front-end development." />
+  <meta property="og:url" content="https://kalyanraj08.github.io/kaldle-js.html" />
+  <meta property="og:image" content="https://kalyanraj08.github.io/assets/kalyan.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=33" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Left sidebar: wide screens -->
+    <aside class="side" aria-label="Site menu">
+      <div class="side-in">
+        <a class="profile" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="48" height="48" />
+          <span class="profile-text">
+            <strong>Kalyan Rajkumar</strong>
+            <span class="mono">@KalyanRaj08</span>
+          </span>
+        </a>
+        <p class="profile-bio">Backend engineer at Zoho · Chennai</p>
+        <div>
+          <div class="side-label">menu</div>
+          <nav class="side-nav">
+            <a href="index.html"><i>❯</i>home</a><a href="projects.html" aria-current="page"><i>▤</i>projects</a><a href="about.html"><i>◉</i>about</a>
+            <a href="about.html#contact" data-contact><i>✉</i>contact</a>
+          </nav>
+        </div>
+        <div class="side-mid">
+          <a class="side-resume" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf">
+            <span class="ico" aria-hidden="true">⬇</span>
+            <span class="txt"><strong>Download résumé</strong><span class="mono">PDF · 2026</span></span>
+          </a>
+        </div>
+        <div class="side-foot">
+          <span><span class="dot"></span>&nbsp; open to work</span>
+          <a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+      <!-- Top bar: narrow screens -->
+      <nav class="site-nav" aria-label="Site menu">
+        <a class="profile small" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="32" height="32" />
+          <span class="profile-text"><strong>Kalyan Rajkumar</strong></span>
+        </a>
+        <a class="btn-resume compact" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf"><span class="ico" aria-hidden="true">⬇</span><span>Résumé</span></a>
+        <div class="site-links">
+          <a href="index.html">home</a><a href="projects.html" aria-current="page">projects</a><a href="about.html">about</a>
+          <a href="about.html#contact" data-contact>contact</a>
+        </div>
+      </nav>
+
+                  <main class="site-main pd-enter">
+        <a class="back-link mono" href="projects.html">← all projects</a>
+
+        <section class="pd-top no-photo">
+          <div class="pd-intro">
+            <div class="badges"><span class="badge personal">Personal</span><span class="when-chip mono"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 7h12M5.5 1.5v3M10.5 1.5v3"/></svg>Aug 2025</span></div>
+            <h1>Kaldle.js</h1>
+            <p class="pd-lead">A clone of Wordle, one of my favourite simple games, built in JavaScript with React.</p>
+            <dl class="facts">
+              <div><dt>Stack</dt><dd>JavaScript · React 19 · Create React App</dd></div>
+              <div><dt>Words</dt><dd>5,757 five-letter words from a JSON file</dd></div>
+              <div><dt>Tries</dt><dd>6 guesses per word</dd></div>
+              <div><dt>Type</dt><dd>Browser game, no backend</dd></div>
+            </dl>
+            <div class="cta"><a class="btn pri" href="https://github.com/KalyanRaj08/KALDLE-JS" target="_blank" rel="noopener">View on GitHub ↗</a>
+              <a class="btn" href="projects.html">More projects</a></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">screens and video</h2><span class="sec-link">swipe or use the arrows</span></div>
+          <div class="gallery wide" id="gallery" aria-roledescription="carousel" aria-label="Kaldle.js screenshots">
+            <div class="g-stage">
+              <figure class="shot on" data-cap="Splash screen"><img src="assets/kaldle-splash.webp" alt="The Kaldle splash screen: the logo in a green oval on a mint background" draggable="false" /></figure>
+              <figure class="shot" data-cap="A won round: the last row is all green"><img src="assets/kaldle-board-full.webp" alt="A finished Kaldle board with six guesses, the last row TREAD all green, and earlier rows coloured yellow, red and green" loading="lazy" draggable="false" /></figure>
+              <figure class="shot" data-cap="Playing a round"><video controls preload="none" playsinline poster="assets/kaldle-play-poster-full.jpg" aria-label="Screen recording of a round of Kaldle being played"><source src="assets/kaldle-play-silent.mp4" type="video/mp4" /></video></figure>
+              <button class="g-arrow prev" type="button" aria-label="Previous screenshot">←</button>
+              <button class="g-arrow next" type="button" aria-label="Next screenshot">→</button>
+            </div>
+            <p class="g-cap mono" aria-live="polite"></p>
+            <div class="g-dots" role="tablist" aria-label="Choose screenshot"></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">timeline</h2></div>
+          <ol class="timeline">
+            <li><span class="tl-date">A weekend in Aug 2025</span><b>Project starts</b><span class="tl-text">Started on a bored weekend, to learn front-end JavaScript.</span></li>
+            <li><span class="tl-date">Mid Aug 2025</span><b>Game and styling</b><span class="tl-text">Typing, the colour codes, the tries and the response styling. Last commit on 15 Aug 2025.</span></li>
+          </ol>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">origin story</h2></div>
+          <p class="origin-box">It is a clone of one of my favourite simple games, Wordle, rebuilt in JavaScript with React. I was bored one weekend and planned to learn front-end JavaScript, so I ended up building this.</p>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">how it plays</h2></div>
+          <ol class="path auto">
+            <li><b>Pick a word</b><span>A random five-letter word is chosen from a list of 5,757 words that the browser loads from a JSON file.</span></li>
+            <li><b>Type a guess</b><span>Type letters on the keyboard, press Backspace to delete and Enter to submit.</span></li>
+            <li><b>Check the word</b><span>A word that is not in the list shakes the row, and a try is not used.</span></li>
+            <li><b>Read the colours</b><span>Green is the right letter in the right place. Yellow is a letter that is in the word elsewhere. Red is a letter that is not in the word.</span></li>
+            <li><b>Six tries</b><span>You get six guesses. A winning row gets a green border.</span></li>
+          </ol>
+        </section>
+
+        <section class="strip">
+          <div><h2>Want to see the code?</h2><p>The source is on GitHub.</p></div>
+          <a class="btn pri" href="https://github.com/KalyanRaj08/KALDLE-JS" target="_blank" rel="noopener">GitHub ↗</a>
+        </section>
+      </main>
+
+
+      <footer class="site-foot">
+        <span>© 2026 Kalyan Rajkumar</span>
+        <span>Chennai, India · open to remote and relocation</span>
+        <span><a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a> · <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </footer>
+    </div>
+  </div>
+  <script src="script.js?v=33"></script>
+</body>
+</html>
