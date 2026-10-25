@@ -5,6 +5,7 @@ function applyFilter(f) {
   });
   const sel = document.getElementById('filterSelect');
   if (sel) sel.value = f;
+  if (window.syncDropdowns) window.syncDropdowns();
   if (window.projTilesRefresh) window.projTilesRefresh(true);
 }
 const filterSelect = document.getElementById('filterSelect');
@@ -133,7 +134,13 @@ document.querySelectorAll('.stat b').forEach((el, n) => {
     count.textContent = `${i + 1} / ${cs.length}`;
     prev.disabled = i === 0;
     next.disabled = i === cs.length - 1;
+    updateEnd();
   }
+  // on touch screens a swipe up scrolls the page, until the end of the page is reached
+  function updateEnd() {
+    grid.classList.toggle('at-end', window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 6);
+  }
+  window.addEventListener('scroll', updateEnd, { passive: true });
 
   function setView(v, save) {
     tiles = v === 'tiles';
@@ -254,6 +261,7 @@ document.querySelectorAll('.stat b').forEach((el, n) => {
     list.forEach((c) => grid.appendChild(c));
     const sel = document.getElementById('sortSelect');
     if (sel) sel.value = mode;
+    if (window.syncDropdowns) window.syncDropdowns();
     if (save) { try { localStorage.setItem('projSort', mode); } catch (e) {} }
     i = 0; dx = 0;
     place(false);
@@ -433,4 +441,95 @@ document.querySelectorAll('.arch').forEach((arch) => {
     requestAnimationFrame(() => requestAnimationFrame(() => wipe.classList.add('on')));
     setTimeout(() => { location.href = a.getAttribute('href'); }, 480);
   }));
+})();
+
+
+// Modern dropdowns: a popover on desktop, a bottom sheet on phones
+(() => {
+  const syncs = [];
+  const CHEV = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg>';
+  const phone = () => window.matchMedia('(max-width: 760px)').matches;
+
+  function enhance(sel, title) {
+    const wrap = sel.closest('.select-wrap');
+    if (!wrap) return;
+    wrap.classList.add('enhanced');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'dd-btn';
+    btn.setAttribute('aria-haspopup', 'listbox');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', title);
+    btn.innerHTML = '<span class="dd-val"></span>' + CHEV;
+    const backdrop = document.createElement('div');
+    backdrop.className = 'dd-backdrop';
+    const panel = document.createElement('div');
+    panel.className = 'dd-panel';
+    panel.setAttribute('role', 'listbox');
+    panel.setAttribute('aria-label', title);
+    panel.innerHTML = '<div class="dd-grip" aria-hidden="true"></div><div class="dd-title mono"></div><ul></ul>';
+    panel.querySelector('.dd-title').textContent = title;
+    const ul = panel.querySelector('ul');
+    [...sel.options].forEach((o) => {
+      const li = document.createElement('li');
+      li.className = 'dd-opt';
+      li.setAttribute('role', 'option');
+      li.tabIndex = -1;
+      li.dataset.value = o.value;
+      li.textContent = o.textContent;
+      ul.appendChild(li);
+    });
+    wrap.append(btn, backdrop, panel);
+
+    const opts = () => [...ul.children];
+    const sync = () => {
+      btn.querySelector('.dd-val').textContent = sel.options[sel.selectedIndex].textContent;
+      opts().forEach((li) => { const on = li.dataset.value === sel.value; li.classList.toggle('sel', on); li.setAttribute('aria-selected', String(on)); });
+    };
+    syncs.push(sync);
+    sync();
+
+    const close = (refocus) => {
+      wrap.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (!document.querySelector('.select-wrap.open')) document.body.classList.remove('dd-lock');
+      if (refocus) btn.focus();
+    };
+    const open = () => {
+      document.querySelectorAll('.select-wrap.open').forEach((w) => { if (w !== wrap) w.classList.remove('open'); });
+      wrap.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      if (phone()) document.body.classList.add('dd-lock');
+      const cur = opts().find((li) => li.classList.contains('sel')) || opts()[0];
+      setTimeout(() => cur.focus({ preventScroll: true }), 30);
+    };
+    const choose = (li) => {
+      sel.value = li.dataset.value;
+      sel.dispatchEvent(new Event('change'));
+      sync();
+      close(true);
+    };
+    btn.addEventListener('click', () => (wrap.classList.contains('open') ? close() : open()));
+    backdrop.addEventListener('click', () => close());
+    ul.addEventListener('click', (e) => { const li = e.target.closest('.dd-opt'); if (li) choose(li); });
+    panel.addEventListener('keydown', (e) => {
+      const list = opts();
+      const k = list.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') { e.preventDefault(); list[Math.min(list.length - 1, k + 1)].focus(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); list[Math.max(0, k - 1)].focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); list[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); list[list.length - 1].focus(); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (k > -1) choose(list[k]); }
+      else if (e.key === 'Escape') { e.preventDefault(); close(true); }
+      else if (e.key === 'Tab') close();
+    });
+    btn.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); } });
+    document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) close(); });
+  }
+
+  const f = document.getElementById('filterSelect');
+  const s = document.getElementById('sortSelect');
+  if (f) enhance(f, 'Filter projects');
+  if (s) enhance(s, 'Sort by timeline');
+  window.syncDropdowns = () => syncs.forEach((fn) => fn());
 })();

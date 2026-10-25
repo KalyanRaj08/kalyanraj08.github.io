@@ -609,7 +609,6 @@ a.repo-btn:hover, a.repo-btn:focus-visible { color: #fff; background: linear-gra
 .card.lifting { box-shadow: 0 0 44px rgba(139,92,246,.65); border-color: var(--purple-light); }
 .tile-hint .h-phone { display: none; }
 @media (pointer: coarse) {
-  .proj-grid.tiles .card.on:has(.card-link) { touch-action: none; }
   .tile-hint .h-desk { display: none; }
   .tile-hint .h-phone { display: inline; }
 }
@@ -771,3 +770,57 @@ a.repo-btn:hover, a.repo-btn:focus-visible { color: #fff; background: linear-gra
 .pd-pager .pd-prev:hover { transform: translateX(-3px); }
 .pd-pager .pd-next:hover { transform: translateX(3px); }
 @media (max-width: 760px) { .pd-pager { grid-template-columns: 1fr; } .pd-pager .pd-next { text-align: left; } }
+
+/* ── MODERN DROPDOWNS ── */
+.select-wrap.enhanced::after { display: none; }
+.select-wrap.enhanced select { display: none; }
+.dd-btn {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer;
+  font-family: var(--mono); font-size: 11.5px; color: var(--text); padding: 7px 12px 7px 14px; border-radius: 20px;
+  background: var(--glass); border: 1px solid var(--line-hi); transition: border-color .15s, background .15s;
+}
+.dd-btn svg { color: var(--purple-light); flex-shrink: 0; transition: transform .25s; }
+.dd-btn:hover { border-color: var(--purple-light); background: var(--glass-hi); }
+.select-wrap.open .dd-btn { border-color: var(--purple-light); background: rgba(139,92,246,.18); }
+.select-wrap.open .dd-btn svg { transform: rotate(180deg); }
+.dd-backdrop { display: none; }
+.dd-grip, .dd-title { display: none; }
+.dd-panel {
+  position: absolute; top: calc(100% + 8px); left: 0; min-width: 100%; width: max-content; z-index: 60;
+  background: #14102a; border: 1px solid var(--line-hi); border-radius: 14px; padding: 6px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 0 24px rgba(124,58,237,.2);
+  opacity: 0; transform: translateY(-6px) scale(.98); transform-origin: top; pointer-events: none; visibility: hidden;
+  transition: opacity .18s, transform .18s, visibility 0s .18s;
+}
+.sort-group .dd-panel { left: auto; right: 0; }
+.select-wrap.open .dd-panel { opacity: 1; transform: none; pointer-events: auto; visibility: visible; transition: opacity .18s, transform .18s; }
+.dd-panel ul { list-style: none; }
+.dd-opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; outline: none;
+  font-family: var(--mono); font-size: 12px; color: var(--text-sec); padding: 9px 12px; border-radius: 9px; transition: background .12s, color .12s;
+}
+.dd-opt:hover, .dd-opt:focus-visible { background: rgba(139,92,246,.22); color: var(--text); }
+.dd-opt.sel { color: var(--purple-pale); }
+.dd-opt.sel::after { content: ''; width: 7px; height: 12px; border-right: 2px solid var(--purple-light); border-bottom: 2px solid var(--purple-light); transform: rotate(45deg) translate(-2px, -2px); flex-shrink: 0; }
+body.dd-lock { overflow: hidden; }
+@media (max-width: 760px) {
+  .filters .dd-btn { width: 100%; font-size: 12px; padding: 10px 11px; border-radius: 12px; background: rgba(139,92,246,.16); }
+  .filters .dd-val { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dd-backdrop { display: block; position: fixed; inset: 0; z-index: 1090; background: rgba(4,2,12,.62); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .select-wrap.open .dd-backdrop { opacity: 1; pointer-events: auto; }
+  .dd-panel, .sort-group .dd-panel {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; width: auto; min-width: 0; z-index: 1100; max-height: 75vh; overflow-y: auto;
+    border-radius: 22px 22px 0 0; border-bottom: 0; padding: 10px 14px calc(20px + env(safe-area-inset-bottom));
+    opacity: 1; transform: translateY(105%); visibility: hidden; transition: transform .35s cubic-bezier(.2,.85,.2,1), visibility 0s .35s;
+  }
+  .select-wrap.open .dd-panel { transform: none; visibility: visible; transition: transform .35s cubic-bezier(.2,.85,.2,1); }
+  .dd-grip { display: block; width: 42px; height: 4px; border-radius: 2px; background: var(--line-hi); margin: 2px auto 14px; }
+  .dd-title { display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--purple-light); margin: 0 6px 8px; }
+  .dd-opt { font-size: 15px; padding: 15px 14px; border-radius: 12px; }
+  .dd-opt.sel { background: rgba(139,92,246,.18); }
+}
+
+/* swipe up for details only once the page has reached its end */
+@media (pointer: coarse) {
+  .proj-grid.tiles.at-end .card.on { touch-action: none; }
+}

@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=33" />
+  <link rel="stylesheet" href="style.css?v=35" />
 </head>
 <body>
   <div class="shell">
@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="filters" role="group" aria-label="Filter projects">
-          <label class="filter-group">
+          <div class="filter-group">
             <span class="sort-label mono"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12l-4.5 5.5V13l-3-1.5V8.5L2 3Z"/></svg><span class="lbl"> filter</span></span>
             <span class="select-wrap">
               <select id="filterSelect" aria-label="Filter projects">
@@ -95,8 +95,8 @@
                 <option value="college">College · 6</option>
               </select>
             </span>
-          </label>
-          <label class="sort-group">
+          </div>
+          <div class="sort-group">
             <span class="sort-label mono"><i aria-hidden="true">⇅</i><span class="lbl"> sort by</span></span>
             <span class="select-wrap">
               <select id="sortSelect" aria-label="Sort projects by timeline">
@@ -105,7 +105,7 @@
                 <option value="oldest">Oldest first</option>
               </select>
             </span>
-          </label>
+          </div>
         </div>
         <div class="proj-stage">
         <div class="proj-grid" id="projGrid">
@@ -232,7 +232,7 @@
         </div>
         <div class="tile-nav" id="tileNav" hidden>
           <button class="tile-arrow" id="tilePrev" type="button" aria-label="Previous project">←</button>
-          <div class="tile-meta"><span class="mono" id="tileCount"></span><div class="tile-dots" id="tileDots"></div><span class="mono tile-hint"><span class="h-desk">swipe or use ← →</span><span class="h-phone">swipe up on a tile for details</span></span></div>
+          <div class="tile-meta"><span class="mono" id="tileCount"></span><div class="tile-dots" id="tileDots"></div><span class="mono tile-hint"><span class="h-desk">swipe or use ← →</span><span class="h-phone">tap a tile for details</span></span></div>
           <button class="tile-arrow" id="tileNext" type="button" aria-label="Next project">→</button>
         </div>
         <section class="strip" style="margin-top:36px">
@@ -248,6 +248,6 @@
       </footer>
     </div>
   </div>
-  <script src="script.js?v=33"></script>
+  <script src="script.js?v=35"></script>
 </body>
 </html>
