@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventory management system — Kalyan Rajkumar</title>
+  <meta name="description" content="KK Supermarket Inventory Management System, a Python console app that stores products in JSON files and produces bills." />
+  <meta name="theme-color" content="#080610" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Inventory management system — Kalyan Rajkumar" />
+  <meta property="og:description" content="KK Supermarket Inventory Management System, a Python console app that stores products in JSON files and produces bills." />
+  <meta property="og:url" content="https://kalyanraj08.github.io/inventory-management.html" />
+  <meta property="og:image" content="https://kalyanraj08.github.io/assets/kalyan.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=28" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Left sidebar: wide screens -->
+    <aside class="side" aria-label="Site menu">
+      <div class="side-in">
+        <a class="profile" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="48" height="48" />
+          <span class="profile-text">
+            <strong>Kalyan Rajkumar</strong>
+            <span class="mono">@KalyanRaj08</span>
+          </span>
+        </a>
+        <p class="profile-bio">Backend engineer at Zoho · Chennai</p>
+        <div>
+          <div class="side-label">menu</div>
+          <nav class="side-nav">
+            <a href="index.html"><i>❯</i>home</a><a href="projects.html" aria-current="page"><i>▤</i>projects</a><a href="about.html"><i>◉</i>about</a>
+            <a href="about.html#contact" data-contact><i>✉</i>contact</a>
+          </nav>
+        </div>
+        <div class="side-mid">
+          <a class="side-resume" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf">
+            <span class="ico" aria-hidden="true">⬇</span>
+            <span class="txt"><strong>Download résumé</strong><span class="mono">PDF · 2026</span></span>
+          </a>
+        </div>
+        <div class="side-foot">
+          <span><span class="dot"></span>&nbsp; open to work</span>
+          <a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+      <!-- Top bar: narrow screens -->
+      <nav class="site-nav" aria-label="Site menu">
+        <a class="profile small" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="32" height="32" />
+          <span class="profile-text"><strong>Kalyan Rajkumar</strong></span>
+        </a>
+        <a class="btn-resume compact" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf"><span class="ico" aria-hidden="true">⬇</span><span>Résumé</span></a>
+        <div class="site-links">
+          <a href="index.html">home</a><a href="projects.html" aria-current="page">projects</a><a href="about.html">about</a>
+          <a href="about.html#contact" data-contact>contact</a>
+        </div>
+      </nav>
+
+                  <main class="site-main pd-enter">
+        <a class="back-link mono" href="projects.html">← all projects</a>
+
+        <section class="pd-top no-photo">
+          <div class="pd-intro">
+            <div class="badges"><span class="badge college">College</span><span class="when-chip mono"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 7h12M5.5 1.5v3M10.5 1.5v3"/></svg>Sep 2021</span></div>
+            <h1>Inventory management system</h1>
+            <p class="pd-lead">The KK Supermarket Inventory Management System, a Python console app that keeps the data of every product in the store, tells products apart by id and name, prints bills and records every sale.</p>
+            <dl class="facts">
+              <div><dt>Stack</dt><dd>Python 3.6 · JSON files</dd></div>
+              <div><dt>Type</dt><dd>Console app</dd></div>
+              <div><dt>Data</dt><dd>Products and sales stored in JSON</dd></div>
+            </dl>
+            <div class="cta"><a class="btn pri" href="https://github.com/KalyanRaj08/ETG-Project-1" target="_blank" rel="noopener">View on GitHub ↗</a>
+              <a class="btn" href="projects.html">More projects</a></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">screens</h2><span class="sec-link">swipe or use the arrows</span></div>
+          <div class="gallery wide" id="gallery" aria-roledescription="carousel" aria-label="Inventory management system screenshots">
+            <div class="g-stage">
+              <figure class="shot on" data-cap="Welcome page: press enter to continue"><img src="assets/inventory-welcome.webp" alt="Terminal showing the KK Supermarket welcome screen and a prompt to press enter to continue" draggable="false" /></figure>
+              <figure class="shot" data-cap="Account menu: new to login, already have an account, delete account, exit"><img src="assets/inventory-accounts.webp" alt="Terminal menu with the options new to login, already have an account, delete account and exit" loading="lazy" draggable="false" /></figure>
+              <figure class="shot" data-cap="Signing in with a username and password"><img src="assets/inventory-login.webp" alt="Terminal asking for a username and a password" loading="lazy" draggable="false" /></figure>
+              <figure class="shot" data-cap="Inventory menu: Admin, Customer order, Search for a Product, Signout"><img src="assets/inventory-menu.webp" alt="Terminal menu with the options Admin, Customer order, Search for a Product and Signout" loading="lazy" draggable="false" /></figure>
+              <figure class="shot" data-cap="Search for a product: the stock list, then a prompt for the name"><img src="assets/inventory-search.webp" alt="Terminal listing products with number, name, availability, price, discount value in rupees and latest stock-in date, followed by a prompt for a product name to search" loading="lazy" draggable="false" /></figure>
+              <button class="g-arrow prev" type="button" aria-label="Previous screenshot">←</button>
+              <button class="g-arrow next" type="button" aria-label="Next screenshot">→</button>
+            </div>
+            <p class="g-cap mono" aria-live="polite"></p>
+            <div class="g-dots" role="tablist" aria-label="Choose screenshot"></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">what it does</h2></div>
+          <ol class="path auto">
+            <li><b>Accounts</b><span>Create a new account, sign in with an existing one, or delete an account.</span></li>
+            <li><b>Admin tools</b><span>Password-protected. Admins can add products, remove products, search for a product, and see the bill list of everyone who bought from the store. No two products can share an id or a name.</span></li>
+            <li><b>Customer orders</b><span>A customer enters product names and quantities and gets a bill to print for their records. The app also stores every sale.</span></li>
+            <li><b>Search</b><span>Customers can search for products in the store. The stock list shows each product's number, name, availability, price, discount value in rupees and latest stock-in date, then asks for the product name to search.</span></li>
+          </ol>
+          <p class="pd-note">It would be useful for any shop if it grew into a full application with a better user interface.</p>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">how to use it</h2></div>
+          <ol class="path auto">
+            <li><b>Welcome page</b><span>Press enter to start.</span></li>
+            <li><b>Home page</b><span>You need an account to get in. Press 1 if you are new to login, 2 if you already have an account, 3 to delete an account, or 4 to exit.</span></li>
+            <li><b>Inventory system</b><span>After signing in, choose 1 for Admin, 2 for Customer order, 3 to Search for a Product, or 4 to Signout.</span></li>
+            <li><b>Moving around</b><span>Every page has an exit option that takes you a step back. You can sign out and sign in with another account, and exit on the home page closes the app.</span></li>
+          </ol>
+        </section>
+
+        <section class="strip">
+          <div><h2>Want to see the code?</h2><p>The source is on GitHub.</p></div>
+          <a class="btn pri" href="https://github.com/KalyanRaj08/ETG-Project-1" target="_blank" rel="noopener">GitHub ↗</a>
+        </section>
+      </main>
+
+
+      <footer class="site-foot">
+        <span>© 2026 Kalyan Rajkumar</span>
+        <span>Chennai, India · open to remote and relocation</span>
+        <span><a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a> · <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </footer>
+    </div>
+  </div>
+  <script src="script.js?v=28"></script>
+</body>
+</html>

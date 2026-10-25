@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MySQL query tuning — Kalyan Rajkumar</title>
+  <meta name="description" content="Two slow MySQL queries Kalyan fixed at Zoho: a 15 minute report query cut to about 4 minutes and a 10 minute query cut to 1.3 minutes." />
+  <meta name="theme-color" content="#080610" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MySQL query tuning — Kalyan Rajkumar" />
+  <meta property="og:description" content="Two slow MySQL queries Kalyan fixed at Zoho: a 15 minute report query cut to about 4 minutes and a 10 minute query cut to 1.3 minutes." />
+  <meta property="og:url" content="https://kalyanraj08.github.io/mysql-query-tuning.html" />
+  <meta property="og:image" content="https://kalyanraj08.github.io/assets/kalyan.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=28" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Left sidebar: wide screens -->
+    <aside class="side" aria-label="Site menu">
+      <div class="side-in">
+        <a class="profile" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="48" height="48" />
+          <span class="profile-text">
+            <strong>Kalyan Rajkumar</strong>
+            <span class="mono">@KalyanRaj08</span>
+          </span>
+        </a>
+        <p class="profile-bio">Backend engineer at Zoho · Chennai</p>
+        <div>
+          <div class="side-label">menu</div>
+          <nav class="side-nav">
+            <a href="index.html"><i>❯</i>home</a><a href="projects.html" aria-current="page"><i>▤</i>projects</a><a href="about.html"><i>◉</i>about</a>
+            <a href="about.html#contact" data-contact><i>✉</i>contact</a>
+          </nav>
+        </div>
+        <div class="side-mid">
+          <a class="side-resume" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf">
+            <span class="ico" aria-hidden="true">⬇</span>
+            <span class="txt"><strong>Download résumé</strong><span class="mono">PDF · 2026</span></span>
+          </a>
+        </div>
+        <div class="side-foot">
+          <span><span class="dot"></span>&nbsp; open to work</span>
+          <a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+      <!-- Top bar: narrow screens -->
+      <nav class="site-nav" aria-label="Site menu">
+        <a class="profile small" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="32" height="32" />
+          <span class="profile-text"><strong>Kalyan Rajkumar</strong></span>
+        </a>
+        <a class="btn-resume compact" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf"><span class="ico" aria-hidden="true">⬇</span><span>Résumé</span></a>
+        <div class="site-links">
+          <a href="index.html">home</a><a href="projects.html" aria-current="page">projects</a><a href="about.html">about</a>
+          <a href="about.html#contact" data-contact>contact</a>
+        </div>
+      </nav>
+
+                  <main class="site-main pd-enter">
+        <a class="back-link mono" href="projects.html">← all projects</a>
+
+        <section class="pd-top no-photo">
+          <div class="pd-intro">
+            <div class="badges"><span class="badge case">Case study</span><span class="badge work">Work</span><span class="when-chip mono"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 7h12M5.5 1.5v3M10.5 1.5v3"/></svg>Jan 2023 – present</span></div>
+            <h1>MySQL query tuning</h1>
+            <p class="pd-lead">Two slow queries in core workflows, found and fixed with denormalising and a forced index.</p>
+            <dl class="facts">
+              <div><dt>Stack</dt><dd>MySQL · Indexing · Query rewrites</dd></div>
+              <div><dt>Where</dt><dd>Accountant reports and Workpaper</dd></div>
+              <div><dt>Repo</dt><dd>Private, internal Zoho work</dd></div>
+            </dl>
+            <div class="cta"><span class="btn private-pill" title="The code is internal Zoho work"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg> Private repo</span>
+              <a class="btn" href="projects.html">More projects</a></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">query time, before and after</h2></div>
+          <div class="ba-list">
+            <div class="ba">
+              <div class="ba-name mono">Accountant sum query</div>
+              <div class="ba-card"><span class="mono">before</span><b>14–15 min</b></div>
+              <div class="ba-arrow" aria-hidden="true">→</div>
+              <div class="ba-card after"><span class="mono">after</span><b>4–5 min</b></div>
+            </div>
+            <div class="ba">
+              <div class="ba-name mono">Workpaper query</div>
+              <div class="ba-card"><span class="mono">before</span><b>10 min</b></div>
+              <div class="ba-arrow" aria-hidden="true">→</div>
+              <div class="ba-card after"><span class="mono">after</span><b>1.3 min</b></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="block" id="arch">
+          <div class="sec-head"><h2 class="sec-label">two fixes</h2><span class="sec-link">click a part</span></div>
+          <div class="arch">
+            <div class="arch-flow" role="group" aria-label="Parts">
+              <button class="node on" type="button" data-node="sum" aria-pressed="true"><i aria-hidden="true">∑</i><span>Sum query</span><small>Accountant report</small></button>
+              <button class="node" type="button" data-node="wp" aria-pressed="false"><i aria-hidden="true">⌗</i><span>Join query</span><small>Workpaper</small></button>
+            </div>
+            <div class="arch-info" aria-live="polite">
+              <div class="arch-pane on" data-pane="sum">
+                <h3>Sum query · Accountant report</h3>
+                <p>A transaction sum query behind a report was too slow.</p>
+                <ul>
+                  <li>A partner had more than 8 lakh rows in accrual transactions, and the query summed them all each time</li>
+                  <li>I denormalised it: a job calculates the sum and stores it against each chart-of-accounts entry</li>
+                  <li>Behind a key, so only selected customers run this flow</li>
+                  <li>Time dropped from around 14–15 minutes to 4–5 minutes, roughly 30% of the original</li>
+                </ul>
+              </div>
+              <div class="arch-pane" data-pane="wp" hidden>
+                <h3>Join query · Workpaper</h3>
+                <p>A Workpaper query ran for about 10 minutes.</p>
+                <ul>
+                  <li>A foreign key join was not using its index and ran as if the columns were not indexed</li>
+                  <li>The cause: an earlier left join created an intermediate table, so the index was ignored</li>
+                  <li>Fix: a forced index, so the values are read from the index</li>
+                  <li>Time dropped from about 10 minutes to 1.3 minutes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="strip">
+          <div><h2>More projects</h2><p>See everything I have built and shipped.</p></div>
+          <a class="btn pri" href="projects.html">All projects</a>
+        </section>
+      </main>
+
+
+      <footer class="site-foot">
+        <span>© 2026 Kalyan Rajkumar</span>
+        <span>Chennai, India · open to remote and relocation</span>
+        <span><a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a> · <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </footer>
+    </div>
+  </div>
+  <script src="script.js?v=28"></script>
+</body>
+</html>

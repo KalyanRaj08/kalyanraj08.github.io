@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mail client GUI — Kalyan Rajkumar</title>
+  <meta name="description" content="A Python email app built on SMTP with a Tkinter interface to log in, send and receive mail." />
+  <meta name="theme-color" content="#080610" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mail client GUI — Kalyan Rajkumar" />
+  <meta property="og:description" content="A Python email app built on SMTP with a Tkinter interface to log in, send and receive mail." />
+  <meta property="og:url" content="https://kalyanraj08.github.io/mail-client-gui.html" />
+  <meta property="og:image" content="https://kalyanraj08.github.io/assets/kalyan.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=28" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Left sidebar: wide screens -->
+    <aside class="side" aria-label="Site menu">
+      <div class="side-in">
+        <a class="profile" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="48" height="48" />
+          <span class="profile-text">
+            <strong>Kalyan Rajkumar</strong>
+            <span class="mono">@KalyanRaj08</span>
+          </span>
+        </a>
+        <p class="profile-bio">Backend engineer at Zoho · Chennai</p>
+        <div>
+          <div class="side-label">menu</div>
+          <nav class="side-nav">
+            <a href="index.html"><i>❯</i>home</a><a href="projects.html" aria-current="page"><i>▤</i>projects</a><a href="about.html"><i>◉</i>about</a>
+            <a href="about.html#contact" data-contact><i>✉</i>contact</a>
+          </nav>
+        </div>
+        <div class="side-mid">
+          <a class="side-resume" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf">
+            <span class="ico" aria-hidden="true">⬇</span>
+            <span class="txt"><strong>Download résumé</strong><span class="mono">PDF · 2026</span></span>
+          </a>
+        </div>
+        <div class="side-foot">
+          <span><span class="dot"></span>&nbsp; open to work</span>
+          <a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+      <!-- Top bar: narrow screens -->
+      <nav class="site-nav" aria-label="Site menu">
+        <a class="profile small" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="32" height="32" />
+          <span class="profile-text"><strong>Kalyan Rajkumar</strong></span>
+        </a>
+        <a class="btn-resume compact" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf"><span class="ico" aria-hidden="true">⬇</span><span>Résumé</span></a>
+        <div class="site-links">
+          <a href="index.html">home</a><a href="projects.html" aria-current="page">projects</a><a href="about.html">about</a>
+          <a href="about.html#contact" data-contact>contact</a>
+        </div>
+      </nav>
+
+                  <main class="site-main pd-enter">
+        <a class="back-link mono" href="projects.html">← all projects</a>
+
+        <section class="pd-top no-photo">
+          <div class="pd-intro">
+            <div class="badges"><span class="badge college">College</span><span class="when-chip mono"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 7h12M5.5 1.5v3M10.5 1.5v3"/></svg>Oct 2020 · during COVID online classes</span></div>
+            <h1>Mail client GUI</h1>
+            <p class="pd-lead">An email application that logs in to an existing account and sends and receives mail over SMTP, with a Tkinter interface.</p>
+            <dl class="facts">
+              <div><dt>Stack</dt><dd>Python · SMTP · Tkinter</dd></div>
+              <div><dt>Type</dt><dd>Desktop app</dd></div>
+              <div><dt>Files</dt><dd>SMTP_email.py and SMTP_email_TK.py</dd></div>
+            </dl>
+            <div class="cta"><a class="btn pri" href="https://github.com/KalyanRaj08/SMTP-EMAIL-GUI" target="_blank" rel="noopener">View on GitHub ↗</a>
+              <a class="btn" href="projects.html">More projects</a></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">screens</h2><span class="sec-link">swipe or use the arrows</span></div>
+          <div class="gallery wide" id="gallery" aria-roledescription="carousel" aria-label="Mail client GUI screenshots">
+            <div class="g-stage">
+              <figure class="shot on" data-cap="Login window: username, password, LOGIN and NEXT"><img src="assets/mail-login.webp" alt="Login window with username and password fields and Login and Next buttons on a blue background" draggable="false" /></figure>
+              <figure class="shot" data-cap="Inbox: your messages and a REFRESH button"><img src="assets/mail-inbox.webp" alt="Inbox window with a message area and a Refresh button, under a menu bar" loading="lazy" draggable="false" /></figure>
+              <figure class="shot" data-cap="Compose: receiver, subject, message and SEND"><img src="assets/mail-compose.webp" alt="Compose window with receiver, subject and message fields and a Send button" loading="lazy" draggable="false" /></figure>
+              <button class="g-arrow prev" type="button" aria-label="Previous screenshot">←</button>
+              <button class="g-arrow next" type="button" aria-label="Next screenshot">→</button>
+            </div>
+            <p class="g-cap mono" aria-live="polite"></p>
+            <div class="g-dots" role="tablist" aria-label="Choose screenshot"></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">origin story</h2></div>
+          <p class="origin-box">As a mechanical student I helped IT and CS friends with their projects and sat in on their online classes during COVID. When one needed an SMTP mail app for his final project, I built the GUI inbox for him.</p>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">what is inside</h2></div>
+          <ol class="path auto">
+            <li><b>SMTP_email.py</b><span>The core script. It sends and receives email over SMTP, without a GUI.</span></li>
+            <li><b>SMTP_email_TK.py</b><span>The Tkinter GUI. It gives a mail app where you log in, send and receive emails over SMTP.</span></li>
+          </ol>
+        </section>
+
+        <section class="strip">
+          <div><h2>Want to see the code?</h2><p>The source is on GitHub.</p></div>
+          <a class="btn pri" href="https://github.com/KalyanRaj08/SMTP-EMAIL-GUI" target="_blank" rel="noopener">GitHub ↗</a>
+        </section>
+      </main>
+
+
+      <footer class="site-foot">
+        <span>© 2026 Kalyan Rajkumar</span>
+        <span>Chennai, India · open to remote and relocation</span>
+        <span><a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a> · <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </footer>
+    </div>
+  </div>
+  <script src="script.js?v=28"></script>
+</body>
+</html>

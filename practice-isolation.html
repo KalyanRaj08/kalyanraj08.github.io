@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zoho Practice isolation — Kalyan Rajkumar</title>
+  <meta name="description" content="How Kalyan moved Zoho Practice out of the Finance Suite monolith into its own service and cut a two-week build movement to two days." />
+  <meta name="theme-color" content="#080610" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Zoho Practice isolation — Kalyan Rajkumar" />
+  <meta property="og:description" content="How Kalyan moved Zoho Practice out of the Finance Suite monolith into its own service and cut a two-week build movement to two days." />
+  <meta property="og:url" content="https://kalyanraj08.github.io/practice-isolation.html" />
+  <meta property="og:image" content="https://kalyanraj08.github.io/assets/kalyan.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=28" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- Left sidebar: wide screens -->
+    <aside class="side" aria-label="Site menu">
+      <div class="side-in">
+        <a class="profile" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="48" height="48" />
+          <span class="profile-text">
+            <strong>Kalyan Rajkumar</strong>
+            <span class="mono">@KalyanRaj08</span>
+          </span>
+        </a>
+        <p class="profile-bio">Backend engineer at Zoho · Chennai</p>
+        <div>
+          <div class="side-label">menu</div>
+          <nav class="side-nav">
+            <a href="index.html"><i>❯</i>home</a><a href="projects.html" aria-current="page"><i>▤</i>projects</a><a href="about.html"><i>◉</i>about</a>
+            <a href="about.html#contact" data-contact><i>✉</i>contact</a>
+          </nav>
+        </div>
+        <div class="side-mid">
+          <a class="side-resume" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf">
+            <span class="ico" aria-hidden="true">⬇</span>
+            <span class="txt"><strong>Download résumé</strong><span class="mono">PDF · 2026</span></span>
+          </a>
+        </div>
+        <div class="side-foot">
+          <span><span class="dot"></span>&nbsp; open to work</span>
+          <a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+      <!-- Top bar: narrow screens -->
+      <nav class="site-nav" aria-label="Site menu">
+        <a class="profile small" href="index.html" aria-label="Kalyan Rajkumar, home">
+          <img src="assets/avatar-192.png" alt="" width="32" height="32" />
+          <span class="profile-text"><strong>Kalyan Rajkumar</strong></span>
+        </a>
+        <a class="btn-resume compact" href="assets/KalyanRajkumar_Resume.pdf" download="Kalyan_Rajkumar_Resume.pdf"><span class="ico" aria-hidden="true">⬇</span><span>Résumé</span></a>
+        <div class="site-links">
+          <a href="index.html">home</a><a href="projects.html" aria-current="page">projects</a><a href="about.html">about</a>
+          <a href="about.html#contact" data-contact>contact</a>
+        </div>
+      </nav>
+
+                  <main class="site-main pd-enter">
+        <a class="back-link mono" href="projects.html">← all projects</a>
+
+        <section class="pd-top no-photo">
+          <div class="pd-intro">
+            <div class="badges"><span class="badge case">Case study</span><span class="badge work">Work</span><span class="when-chip mono"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 7h12M5.5 1.5v3M10.5 1.5v3"/></svg>Nov 2023 – Jan 2024 · 3 months</span></div>
+            <h1>Zoho Practice isolation</h1>
+            <p class="pd-lead">Moved Zoho Practice out of the monolithic Finance Suite into its own service, with shared services extracted to dedicated repos. No production outage.</p>
+            <dl class="facts">
+              <div><dt>Role</dt><dd>Only developer on the move</dd></div>
+              <div><dt>Stack</dt><dd>Java · MySQL · Gradle · Git · Microservices</dd></div>
+              <div><dt>Scope</dt><dd>4 repos: practice, task, client request, workpaper</dd></div>
+              <div><dt>Result</dt><dd>Code from an 11-product repo moved into a Practice-only repo</dd></div>
+              <div><dt>Repo</dt><dd>Private, internal Zoho work</dd></div>
+            </dl>
+            <div class="cta"><span class="btn private-pill" title="The code is internal Zoho work"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg> Private repo</span>
+              <a class="btn" href="projects.html">More projects</a></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">timeline</h2></div>
+          <ol class="timeline">
+            <li><span class="tl-date">Nov 2023</span><b>Move starts</b><span class="tl-text">Analysis, then moving the code in phases planned with my manager.</span></li>
+            <li><span class="tl-date">Jan 2024</span><b>Move finished</b><span class="tl-text">Four repos moved: Practice, task, client request and workpaper.</span></li>
+            <li><span class="tl-date">End Jan – early Feb 2024</span><b>Live</b><span class="tl-text">Practice running from its own repo with no production outage.</span></li>
+          </ol>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">why it was needed</h2></div>
+          <p class="origin-box">The Finance Suite monolith holds 11 products, so moving a Practice build to the monolith server was slow. I analysed which code had to move, how to move it, and made the technical decisions. My manager helped plan the phases and handled approvals.</p>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">build movement, before and after</h2></div>
+          <div class="ba">
+            <div class="ba-card"><span class="mono">before</span><b>2 weeks</b><small>~500 commits, 11 products</small></div>
+            <div class="ba-arrow" aria-hidden="true">→</div>
+            <div class="ba-card after"><span class="mono">after</span><b>2 days</b><small>~30 commits, 1 product</small></div>
+          </div>
+        </section>
+
+        <section class="block">
+          <div class="sec-head"><h2 class="sec-label">what I did</h2></div>
+          <ol class="path auto">
+            <li><b>Analysis and plan</b><span>Worked out which code needed to move and how, then moved it in phases planned with my manager.</span></li>
+            <li><b>Shared repos</b><span>Client request, task and workpaper were split into their own repos because both the monolith and the Practice app servers use them.</span></li>
+            <li><b>Task on its own server</b><span>Task moved alone to an individual app server. The Practice and monolith servers trigger its actions through internal API calls.</span></li>
+            <li><b>Independent build path</b><span>Set up zip creation, a zip file host, a build uploader and a testing setup for the new repo, so builds move without depending on the monolith repo.</span></li>
+          </ol>
+        </section>
+
+        <section class="block" id="arch">
+          <div class="sec-head"><h2 class="sec-label">how the pieces fit</h2><span class="sec-link">click a part</span></div>
+          <div class="arch">
+            <div class="arch-flow many" role="group" aria-label="Parts">
+              <button class="node on" type="button" data-node="mono" aria-pressed="true"><i aria-hidden="true">◧</i><span>Finance Suite</span><small>Monolith</small></button>
+              <button class="node" type="button" data-node="prac" aria-pressed="false"><i aria-hidden="true">▭</i><span>Practice</span><small>Own repo and app server</small></button>
+              <button class="node" type="button" data-node="shared" aria-pressed="false"><i aria-hidden="true">◈</i><span>Shared repos</span><small>Client request, task, workpaper</small></button>
+              <button class="node" type="button" data-node="task" aria-pressed="false"><i aria-hidden="true">❯</i><span>Task server</span><small>Individual app server</small></button>
+            </div>
+            <div class="arch-info" aria-live="polite">
+              <div class="arch-pane on" data-pane="mono">
+                <h3>Finance Suite · Monolith</h3>
+                <p>The original home of Practice, with 11 products in one repo.</p>
+                <ul>
+                  <li>Uses the shared repos for client request, task and workpaper</li>
+                  <li>Triggers task actions through internal API calls</li>
+                </ul>
+              </div>
+              <div class="arch-pane" data-pane="prac" hidden>
+                <h3>Practice · Own repo and app server</h3>
+                <p>Practice now builds and ships on its own.</p>
+                <ul>
+                  <li>One product in one repo</li>
+                  <li>Uses the shared repos too</li>
+                  <li>Calls the task server through internal APIs</li>
+                </ul>
+              </div>
+              <div class="arch-pane" data-pane="shared" hidden>
+                <h3>Shared repos · Client request, task, workpaper</h3>
+                <p>Code that both servers consume, now in dedicated repos.</p>
+                <ul>
+                  <li>Client request</li>
+                  <li>Task</li>
+                  <li>Workpaper</li>
+                </ul>
+              </div>
+              <div class="arch-pane" data-pane="task" hidden>
+                <h3>Task server · Individual app server</h3>
+                <p>Task runs alone on its own app server.</p>
+                <ul>
+                  <li>Practice and monolith call it through internal API calls</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="strip">
+          <div><h2>More projects</h2><p>See everything I have built and shipped.</p></div>
+          <a class="btn pri" href="projects.html">All projects</a>
+        </section>
+      </main>
+
+
+      <footer class="site-foot">
+        <span>© 2026 Kalyan Rajkumar</span>
+        <span>Chennai, India · open to remote and relocation</span>
+        <span><a href="https://www.linkedin.com/in/kalyan-rajkumar-karthikeyan-760a6b195" target="_blank" rel="noopener">LinkedIn ↗</a> · <a href="https://github.com/KalyanRaj08" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </footer>
+    </div>
+  </div>
+  <script src="script.js?v=28"></script>
+</body>
+</html>

@@ -1,14 +1,14 @@
-// Projects page: filter chips
-document.querySelectorAll('.chip[data-filter]').forEach((chip) => {
-  chip.addEventListener('click', () => {
-    const f = chip.dataset.filter;
-    document.querySelectorAll('.chip[data-filter]').forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-    document.querySelectorAll('.card[data-cat]').forEach((card) => {
-      card.hidden = f !== 'all' && !card.dataset.cat.split(' ').includes(f);
-    });
-    if (window.projTilesRefresh) window.projTilesRefresh(true);
+// Projects page: filter dropdown
+function applyFilter(f) {
+  document.querySelectorAll('.card[data-cat]').forEach((card) => {
+    card.hidden = f !== 'all' && !card.dataset.cat.split(' ').includes(f);
   });
-});
+  const sel = document.getElementById('filterSelect');
+  if (sel) sel.value = f;
+  if (window.projTilesRefresh) window.projTilesRefresh(true);
+}
+const filterSelect = document.getElementById('filterSelect');
+if (filterSelect) filterSelect.addEventListener('change', () => applyFilter(filterSelect.value));
 
 // About page: collapsible sections
 document.querySelectorAll('.fold-btn').forEach((btn) => {
@@ -241,19 +241,41 @@ document.querySelectorAll('.stat b').forEach((el, n) => {
   try { saved = localStorage.getItem('projView'); } catch (e) {}
   setView(saved || (window.matchMedia('(max-width: 760px)').matches ? 'tiles' : 'list'), false);
 
+  // sort by when the project started
+  const all = [...grid.querySelectorAll('.card')];
+  all.forEach((c, n) => { c.dataset.order = n; });
+  function applySort(mode, save) {
+    const key = (c) => Number(c.dataset.start || 0);
+    const list = [...all].sort((x, y) => {
+      if (mode === 'newest') return key(y) - key(x) || x.dataset.order - y.dataset.order;
+      if (mode === 'oldest') return key(x) - key(y) || x.dataset.order - y.dataset.order;
+      return x.dataset.order - y.dataset.order;
+    });
+    list.forEach((c) => grid.appendChild(c));
+    const sel = document.getElementById('sortSelect');
+    if (sel) sel.value = mode;
+    if (save) { try { localStorage.setItem('projSort', mode); } catch (e) {} }
+    i = 0; dx = 0;
+    place(false);
+  }
+  const sortSel = document.getElementById('sortSelect');
+  if (sortSel) sortSel.addEventListener('change', () => applySort(sortSel.value, true));
+  let savedSort = 'default';
+  try { savedSort = localStorage.getItem('projSort') || 'default'; } catch (e) {}
+  if (savedSort !== 'default') applySort(savedSort, false);
+
   // remember where the visitor was, so coming back from a details page lands on the same tile
   window.projSaveState = (slug) => {
-    const chip = document.querySelector('.chip[data-filter][aria-pressed="true"]');
+    const fsel = document.getElementById('filterSelect');
     try {
-      sessionStorage.setItem('projState', JSON.stringify({ view: tiles ? 'tiles' : 'list', filter: chip ? chip.dataset.filter : 'all', slug, y: window.scrollY, t: Date.now() }));
+      sessionStorage.setItem('projState', JSON.stringify({ view: tiles ? 'tiles' : 'list', filter: fsel ? fsel.value : 'all', slug, y: window.scrollY, t: Date.now() }));
     } catch (e) {}
   };
   let st = null;
   try { st = JSON.parse(sessionStorage.getItem('projState')); sessionStorage.removeItem('projState'); } catch (e) {}
   if (st && Date.now() - st.t < 30 * 60 * 1000) {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    const chip = document.querySelector(`.chip[data-filter="${st.filter}"]`);
-    if (chip && st.filter !== 'all') chip.click();
+    if (st.filter && st.filter !== 'all') applyFilter(st.filter);
     setView(st.view, false);
     const k = cards().findIndex((c) => { const l = linkOf(c); return l && l.getAttribute('href') === st.slug; });
     if (k > -1) { i = k; place(false); }
@@ -308,11 +330,14 @@ window.addEventListener('pageshow', () => {
     k = (n + shots.length) % shots.length;
     shots.forEach((s, i) => s.classList.toggle('on', i === k));
     [...dots.children].forEach((d, i) => d.setAttribute('aria-selected', String(i === k)));
+    const cap = gal.querySelector('.g-cap');
+    if (cap) cap.textContent = (shots[k].dataset.cap || '') + (shots.length > 6 ? `  ·  ${k + 1} / ${shots.length}` : '');
+    shots.forEach((s, i) => { const v = s.querySelector('video'); if (v && i !== k) v.pause(); });
   };
   gal.querySelector('.prev').addEventListener('click', () => show(k - 1));
   gal.querySelector('.next').addEventListener('click', () => show(k + 1));
   dots.addEventListener('click', (e) => { const i = [...dots.children].indexOf(e.target); if (i > -1) show(i); });
-  stage.addEventListener('pointerdown', (e) => { sx = e.clientX; });
+  stage.addEventListener('pointerdown', (e) => { sx = e.target.closest('video') ? null : e.clientX; });
   stage.addEventListener('pointerup', (e) => { if (sx !== null && Math.abs(e.clientX - sx) > 40) show(k + (e.clientX < sx ? 1 : -1)); sx = null; });
   gal.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(k - 1); if (e.key === 'ArrowRight') show(k + 1); });
   show(0);
